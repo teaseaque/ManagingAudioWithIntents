@@ -186,7 +186,7 @@ class AppleMusicAPIController {
             return
         }
 
-        let url = self.composeAppleMusicAPIURL(artistPath, parameters: ["include": "playlists"])
+        let url = self.composeAppleMusicAPIURL(artistPath, parameters: ["include": "albums,playlists"])
         self.executeFetch(ArtistResponse.self, url: url, completion: { artistResponse in
             guard let completeArtistRelationships = artistResponse?.data.first?.relationships else {
                 completion(nil)

@@ -48,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		47C8C64047C8FBB000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
+		47D38C6047D3880000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = ../Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		9A34E9582282697900BEA2C8 /* AppleMusicAPIStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicAPIStructures.swift; sourceTree = "<group>"; };
 		9A523C4622828D5D0013D71F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9AE7033E227BEE7700E78D38 /* ControlAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,8 +66,6 @@
 		9AE70368227BEF0F00E78D38 /* ControlAudio.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = ControlAudio.entitlements; sourceTree = "<group>"; };
 		9AE8BF32227CF7A600E90EF9 /* ControlAudioExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ControlAudioExtension.entitlements; sourceTree = "<group>"; };
 		9AF3328C2280F103004AA73B /* MediaPlayerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerUtilities.swift; sourceTree = "<group>"; };
-		A3E10060A3E0F9E000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
-		E6069C30E60697B000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = ../Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +86,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47C8B92047C8BB0000000001 /* LICENSE */ = {
+			isa = PBXGroup;
+			children = (
+				47C8C64047C8FBB000000001 /* LICENSE.txt */,
+			);
+			name = LICENSE;
+			path = ../LICENSE;
+			sourceTree = "<group>";
+		};
+		47D3926047D3922000000001 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				47D38C6047D3880000000001 /* SampleCode.xcconfig */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
 		9AE70335227BEE7700E78D38 = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +111,8 @@
 				9AE70340227BEE7700E78D38 /* ControlAudio */,
 				9AE7035C227BEED000E78D38 /* ControlAudioExtension */,
 				9AE7033F227BEE7700E78D38 /* Products */,
-				E606A050E606A2B000000001 /* Configuration */,
-				A3E12950A3E3727000000001 /* LICENSE */,
+				47D3926047D3922000000001 /* Configuration */,
+				47C8B92047C8BB0000000001 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,23 +157,6 @@
 				9AE7035F227BEED000E78D38 /* Info.plist */,
 			);
 			path = ControlAudioExtension;
-			sourceTree = "<group>";
-		};
-		A3E12950A3E3727000000001 /* LICENSE */ = {
-			isa = PBXGroup;
-			children = (
-				A3E10060A3E0F9E000000001 /* LICENSE.txt */,
-			);
-			name = LICENSE;
-			path = ../LICENSE;
-			sourceTree = "<group>";
-		};
-		E606A050E606A2B000000001 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				E6069C30E60697B000000001 /* SampleCode.xcconfig */,
-			);
-			name = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,7 +314,7 @@
 /* Begin XCBuildConfiguration section */
 		9AE7034E227BEE7800E78D38 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -375,7 +375,7 @@
 		};
 		9AE7034F227BEE7800E78D38 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -430,7 +430,7 @@
 		};
 		9AE70351227BEE7800E78D38 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -453,7 +453,7 @@
 		};
 		9AE70352227BEE7800E78D38 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -476,7 +476,7 @@
 		};
 		9AE70364227BEED000E78D38 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ControlAudioExtension/ControlAudioExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -499,7 +499,7 @@
 		};
 		9AE70365227BEED000E78D38 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6069C30E60697B000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 47D38C6047D3880000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ControlAudioExtension/ControlAudioExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
