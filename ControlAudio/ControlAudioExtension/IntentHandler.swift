@@ -6,11 +6,30 @@ This file implements the resolution of intent parameters and the handling of int
 */
 import os.log
 import Intents
+import IntentsUI
 import MediaPlayer
 
 class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHandling {
     
-    func resolveLocalPlaylistFromSearch(_ mediaSearch: INMediaSearch, completion: (INMediaItem?) -> Void) {
+    func makeArtwork(_ urlString: String?) -> INImage? {
+        guard let urlString = urlString else {
+            return nil
+        }
+
+        // Convert the Apple Music API URL size placeholder to the preferred size.
+        let scaleFactor = UIScreen.main.scale
+        let imageSize = INImage.imageSize(for: INPlayMediaIntentResponse(code: .unspecified, userActivity: nil))
+        let resolvedUrlString = urlString.replacingOccurrences(
+                of: "{w}x{h}", with: String(format: "%.0fx%.0f", imageSize.width * scaleFactor, imageSize.height * scaleFactor))
+
+        guard let url = URL(string: resolvedUrlString) else {
+            return nil
+        }
+
+        return INImage(url: url)
+    }
+    
+    func resolveLocalPlaylistFromSearch(_ mediaSearch: INMediaSearch, completion: ([INMediaItem]?) -> Void) {
         // Look up playlist in the local library.
         guard let playlistName = mediaSearch.mediaName,
             let playlist = MediaPlayerUtilities.searchForPlaylistInLocalLibrary(byName: playlistName) else {
@@ -22,32 +41,37 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
         let persistentID = "\(MediaPlayerUtilities.LocalLibraryIdentifierPrefix)\(playlist.persistentID)"
         let mediaItem = INMediaItem(identifier: persistentID, title: playlist.name, type: .playlist, artwork: nil)
         
-        completion(mediaItem)
+        completion([mediaItem])
     }
 
-    func resolveSpecificMediaFromSearch(_ optionalMedia: Any?, completion: (INMediaItem?) -> Void) {
+    func resolveSpecificMediaFromSearch(_ optionalMedia: [Any]?, completion: ([INMediaItem]?) -> Void) {
         guard let media = optionalMedia else {
             completion(nil)
             return
         }
-
-        if let playlist = media as? Playlist {
-            completion(INMediaItem(identifier: playlist.identifier, title: playlist.attributes?.name,
-                                   type: .playlist, artwork: nil, artist: nil))
-        } else if let album = media as? Album {
-            let albumAttributes = album.attributes
-            completion(INMediaItem(identifier: album.identifier, title: albumAttributes?.name,
-                                   type: .album, artwork: nil, artist: albumAttributes?.artistName))
-        } else if let song = media as? Song {
-            let songAttributes = song.attributes
-            completion(INMediaItem(identifier: song.identifier, title: songAttributes?.name,
-                                   type: .song, artwork: nil, artist: songAttributes?.artistName))
-        } else {
-            completion(nil)
+        
+        let results = media.compactMap { (item: Any) -> INMediaItem? in
+            if let playlist = item as? Playlist {
+                let playlistAttributes = playlist.attributes
+                return INMediaItem(identifier: playlist.identifier, title: playlistAttributes?.name,
+                                   type: .playlist, artwork: makeArtwork(playlistAttributes?.artwork?.url), artist: nil)
+            } else if let album = item as? Album {
+                let albumAttributes = album.attributes
+                return INMediaItem(identifier: album.identifier, title: albumAttributes?.name,
+                                   type: .album, artwork: makeArtwork(albumAttributes?.artwork?.url), artist: albumAttributes?.artistName)
+            } else if let song = item as? Song {
+                let songAttributes = song.attributes
+                return INMediaItem(identifier: song.identifier, title: songAttributes?.name,
+                                   type: .song, artwork: makeArtwork(songAttributes?.artwork.url), artist: songAttributes?.artistName)
+            } else {
+                return nil
+            }
         }
+
+        completion(results)
     }
     
-    func resolveMediaItem(for optionalMediaSearch: INMediaSearch?, completion: @escaping (INMediaItem?) -> Void) {
+    func resolveMediaItems(for optionalMediaSearch: INMediaSearch?, completion: @escaping ([INMediaItem]?) -> Void) {
         let controller = AppleMusicAPIController()
         controller.prepareForRequests { ready in
             guard let mediaSearch = optionalMediaSearch, ready else {
@@ -55,12 +79,12 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
                 return
             }
             
-            let mediaItemCompletionHandler: (INMediaItem?) -> Void = { optionalMediaItem in
-                guard let mediaItem = optionalMediaItem else {
+            let mediaItemCompletionHandler: ([INMediaItem]?) -> Void = { optionalMediaItems in
+                guard let mediaItems = optionalMediaItems else {
                     completion(nil)
                     return
                 }
-                completion(mediaItem)
+                completion(mediaItems)
             }
 
             // Important Note:
@@ -70,30 +94,32 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
 
             switch mediaSearch.mediaType {
             case .album:
-                controller.searchForAlbum(mediaSearch.mediaName, artistName: mediaSearch.artistName, completion: { album in
-                    self.resolveSpecificMediaFromSearch(album, completion: mediaItemCompletionHandler)
+                controller.searchForAlbum(mediaSearch.mediaName, artistName: mediaSearch.artistName, completion: { albums in
+                    self.resolveSpecificMediaFromSearch(albums, completion: mediaItemCompletionHandler)
                 })
             case .artist:
                 controller.searchForArtist(mediaSearch.mediaName, completion: { media in
                     self.resolveSpecificMediaFromSearch(media, completion: mediaItemCompletionHandler)
                 })
             case .song:
-                let songCompletionHandler: (Song?) -> Void = { song in
-                    self.resolveSpecificMediaFromSearch(song, completion: mediaItemCompletionHandler)
-                }
-
                 // If the reference is to the currently playing item and there is an identifier provided, a shortcut
                 // can be taken. The item can be looked up directly by the identifier, instead of performing
                 // a search based on the string parameters.
                 if mediaSearch.reference == .currentlyPlaying, let identifier = mediaSearch.mediaIdentifier {
-                    controller.fetchSongByIdentifier(identifier, completion: songCompletionHandler)
+                    controller.fetchSongByIdentifier(identifier, completion: { song in
+                        guard let song = song else {
+                            completion(nil)
+                            return
+                        }
+                        self.resolveSpecificMediaFromSearch([song], completion: mediaItemCompletionHandler)
+                    })
                 } else {
                     controller.searchForSong(mediaSearch.mediaName, albumName: mediaSearch.albumName,
-                                         artistName: mediaSearch.artistName, completion: songCompletionHandler)
+                                             artistName: mediaSearch.artistName, completion: { songs in
+                        self.resolveSpecificMediaFromSearch(songs, completion: mediaItemCompletionHandler)
+                    })
                 }
-            case .music:
-                fallthrough
-            case .unknown:
+            case .music, .unknown:
                 controller.searchForMedia(mediaSearch.mediaName, completion: { media in
                     self.resolveSpecificMediaFromSearch(media, completion: mediaItemCompletionHandler)
                 })
@@ -110,12 +136,12 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
      */
 
     func resolveMediaItems(for intent: INPlayMediaIntent, with completion: @escaping ([INPlayMediaMediaItemResolutionResult]) -> Void) {
-        resolveMediaItem(for: intent.mediaSearch) { optionalMediaItem in
-            guard let mediaItem = optionalMediaItem else {
+        resolveMediaItems(for: intent.mediaSearch) { optionalMediaItems in
+            guard let mediaItems = optionalMediaItems else {
                 completion([INPlayMediaMediaItemResolutionResult.unsupported()])
                 return
             }
-            completion([INPlayMediaMediaItemResolutionResult.success(with: mediaItem)])
+            completion(INPlayMediaMediaItemResolutionResult.successes(with: mediaItems))
         }
     }
     
@@ -131,8 +157,8 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
      */
 
     func resolveMediaItems(for intent: INAddMediaIntent, with completion: @escaping ([INAddMediaMediaItemResolutionResult]) -> Void) {
-        resolveMediaItem(for: intent.mediaSearch) { optionalMediaItem in
-            guard let mediaItem = optionalMediaItem else {
+        resolveMediaItems(for: intent.mediaSearch) { optionalMediaItems in
+            guard let mediaItem = optionalMediaItems?.first else {
                 // Returning unsupported here will result in Siri announcing that it could not find the item in the app
                 // e.g. "I couldn't find <item> on ControlAudio".
                 completion([INAddMediaMediaItemResolutionResult.unsupported()])

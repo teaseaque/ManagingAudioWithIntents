@@ -180,7 +180,7 @@ class AppleMusicAPIController {
         executeFetch(SearchResponse.self, url: url, completion: completion)
     }
     
-    private func resolveArtistPlaylistOrAlbumFromSearchResults(_ searchResults: SearchResults, completion: @escaping (Any?) -> Void) {
+    private func resolveArtistPlaylistOrAlbumFromSearchResults(_ searchResults: SearchResults, completion: @escaping ([Any]?) -> Void) {
         guard let artistPath = searchResults.artists?.data.first?.href else {
             completion(nil)
             return
@@ -193,11 +193,11 @@ class AppleMusicAPIController {
                 return
             }
 
-            completion(completeArtistRelationships.playlists?.data.first ?? completeArtistRelationships.albums?.data.first)
+            completion(completeArtistRelationships.playlists?.data ?? completeArtistRelationships.albums?.data)
         })
     }
     
-    func searchForArtist(_ artistName: String?, completion: @escaping (Any?) -> Void) {
+    func searchForArtist(_ artistName: String?, completion: @escaping ([Any]?) -> Void) {
         guard let searchTerm = artistName else {
             completion(nil)
             return
@@ -213,7 +213,7 @@ class AppleMusicAPIController {
         }
     }
     
-    func searchForSong(_ songName: String?, albumName: String?, artistName: String?, completion: @escaping (Song?) -> Void) {
+    func searchForSong(_ songName: String?, albumName: String?, artistName: String?, completion: @escaping ([Song]?) -> Void) {
         guard var searchTerm = songName else {
             completion(nil)
             return
@@ -228,11 +228,11 @@ class AppleMusicAPIController {
         }
 
         performSearchOfType(.song, term: searchTerm) { searchResponse in
-			completion(searchResponse?.results.songs?.data.first)
+			completion(searchResponse?.results.songs?.data)
         }
     }
     
-    func searchForAlbum(_ albumName: String?, artistName: String?, completion: @escaping (Album?) -> Void) {
+    func searchForAlbum(_ albumName: String?, artistName: String?, completion: @escaping ([Album]?) -> Void) {
         guard var searchTerm = albumName else {
             completion(nil)
             return
@@ -243,11 +243,11 @@ class AppleMusicAPIController {
         }
 
         performSearchOfType(.album, term: searchTerm) { searchResponse in
-			completion(searchResponse?.results.albums?.data.first)
+			completion(searchResponse?.results.albums?.data)
         }
     }
     
-    func searchForMedia(_ mediaName: String?, completion: @escaping (Any?) -> Void) {
+    func searchForMedia(_ mediaName: String?, completion: @escaping ([Any]?) -> Void) {
         guard let searchTerm = mediaName else {
             completion(nil)
             return
@@ -260,8 +260,8 @@ class AppleMusicAPIController {
             }
 
             // In this sample application, with no specified media type, prefer artists, then albums, then songs.
-            self.resolveArtistPlaylistOrAlbumFromSearchResults(searchResults, completion: { playlistOrAlbum in
-                completion(playlistOrAlbum ?? searchResults.albums?.data.first ?? searchResults.songs?.data.first)
+            self.resolveArtistPlaylistOrAlbumFromSearchResults(searchResults, completion: { playlistsOrAlbums in
+                completion(playlistsOrAlbums ?? searchResults.albums?.data ?? searchResults.songs?.data)
             })
         }
     }

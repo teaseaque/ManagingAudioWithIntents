@@ -17,6 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appleMusicAPIController: AppleMusicAPIController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // Set our playlist title in AppIntentVocabulary.plist so we get the proper Siri intent.
+        // In your app, you'll want to make this dynamically tuned to a user's playlist titles.
+        let vocabulary = INVocabulary.shared()
+        let playlistNames = NSOrderedSet(objects: "70s punk classics")
+        vocabulary.setVocabularyStrings(playlistNames, of: .mediaPlaylistTitle)
+        
         // Create the Apple Music API controller to request StoreKit authorization if necessary, fetch the user token and prepare for artwork fetches.
         let controller = AppleMusicAPIController()
         controller.prepareForRequests { success in
