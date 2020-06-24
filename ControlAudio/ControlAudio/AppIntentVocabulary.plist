@@ -28,13 +28,20 @@
 			<array>
 				<string>INPlayMediaIntent.playlistTitle</string>
 			</array>
-			<key>ParameterVocabulary</key>
-			<array>
-				<dict>
-					<key>VocabularyItemIdentifier</key>
-					<string>70s punk anthems</string>
-				</dict>
-			</array>
+            <key>ParameterVocabulary</key>
+            <array>
+                <dict>
+                    <key>VocabularyItemSynonyms</key>
+                    <array>
+                        <dict>
+                            <key>VocabularyItemPhrase</key>
+                            <string>70s punk anthems</string>
+                        </dict>
+                    </array>
+                    <key>VocabularyItemIdentifier</key>
+                    <string>70s punk anthems</string>
+                </dict>
+            </array>
 		</dict>
 	</array>
 </dict>
