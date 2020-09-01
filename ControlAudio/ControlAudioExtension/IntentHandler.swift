@@ -177,7 +177,7 @@ class IntentHandler: INExtension, INPlayMediaIntentHandling, INAddMediaIntentHan
         switch mediaDestination {
         case .playlist:
             let controller = AppleMusicAPIController()
-            controller.prepareForRequests { ready in
+            controller.prepareForRequests { _ in
                 guard let playlistName = mediaDestination.playlistName,
                     MediaPlayerUtilities.searchForPlaylistInLocalLibrary(byName: playlistName) != nil else {
                     // Returning unsupported with the .playlistNameNotFound reason will result in Siri announcing that it

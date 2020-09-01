@@ -61,6 +61,7 @@ class ViewController: UIViewController {
             albumAndArtistName?.text = nil
             albumArt?.image = nil
         } else {
+            
             songName?.text = mediaItem?.title
 
             if let albumName = mediaItem?.albumTitle, let artistName = mediaItem?.artist {
@@ -72,7 +73,7 @@ class ViewController: UIViewController {
             } else {
                 albumAndArtistName?.text = nil
             }
-
+            
             guard let identifier = mediaItem?.playbackStoreID, let imagePointSize = self.albumArt?.bounds.size,
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 albumArt?.image = nil

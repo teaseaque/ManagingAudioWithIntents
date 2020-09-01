@@ -8,6 +8,7 @@ import os.log
 import UIKit
 import Intents
 import MediaPlayer
+import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,17 +25,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let playlistNames = NSOrderedSet(objects: "70s punk classics")
         vocabulary.setVocabularyStrings(playlistNames, of: .mediaPlaylistTitle)
         
-        // Create the Apple Music API controller to request StoreKit authorization if necessary, fetch the user token and prepare for artwork fetches.
-        let controller = AppleMusicAPIController()
-        controller.prepareForRequests { success in
-            if success {
-                self.appleMusicAPIController = controller
+        // Create an instance of INMediaUserContext to increase the likelihood
+        // of the system sending intents that don't include an app name to this app.
+        DispatchQueue.global(qos: .userInitiated).async {
+            let context = INMediaUserContext()
+            context.numberOfLibraryItems = MPMediaQuery.songs().items?.count
+            
+            // Create the Apple Music API controller to request StoreKit authorization, then fetch the user token and prepare for artwork fetches.
+            let controller = AppleMusicAPIController()
+            controller.prepareForRequests { success in
                 
-                // Now that artwork can be fetched, allow the view controller to reload its media item state.
-                DispatchQueue.main.async {
-                    let viewController = self.window?.rootViewController as? ViewController
-                    viewController?.updateMediaItemState()
+                if success {
+                    self.appleMusicAPIController = controller
+                    
+                    context.subscriptionStatus = .subscribed
+                    
+                    // Now that artwork can be fetched, allow the view controller to reload its media item state.
+                    DispatchQueue.main.async {
+                        let viewController = self.window?.rootViewController as? ViewController
+                        viewController?.updateMediaItemState()
+                    }
+                } else {
+                    context.subscriptionStatus = .notSubscribed
                 }
+                
+                context.becomeCurrent()
             }
         }
         return true
@@ -44,6 +59,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Extract the first media item from the intent's media items (these will have been resolved in the extension).
         guard let mediaItem = intent.mediaItems?.first, let identifier = mediaItem.identifier else {
             return
+        }
+        
+        // Get the appropriate domain for Spotlight search.
+        func domainForType(type: INMediaItemType) -> String {
+            return type == .playlist ? "MPMediaGrouping.playlist" :
+            type == .album ? "MPMediaGrouping.album" : "MPMediaGrouping.song"
         }
         
         let player = MPMusicPlayerController.systemMusicPlayer
@@ -58,9 +79,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Set the player queue to the local playlist.
             player.setQueue(with: playlist)
+            
+            // Add the items from the Playlist to Spotlight Search so users can directly play the songs with your app.
+            CSSearchableIndex.default().indexSearchableItems(playlist.items.compactMap({ (playlistItem) -> CSSearchableItem? in
+                let attributes = CSSearchableItemAttributeSet(contentType: .audio)
+                attributes.title = playlistItem.title
+                attributes.artist = playlistItem.artist
+                attributes.album = playlistItem.albumTitle
+                attributes.genre = playlistItem.genre
+                attributes.playCount = NSNumber(value: playlistItem.playCount)
+                attributes.lastUsedDate = playlistItem.lastPlayedDate
+                return CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: domainForType(type: mediaItem.type), attributeSet: attributes)
+            }), completionHandler: nil)
+            
         } else {
             // Reset the player queue to the store identifier; this could be a song, album or playlist.
             player.setQueue(with: [identifier])
+            
+            // Add the item from the Playlist to Spotlight Search so users can directly play the songs with your app.
+            let attributes = CSSearchableItemAttributeSet(contentType: .audio)
+            attributes.title = mediaItem.title
+            attributes.artist = mediaItem.artist
+            let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: domainForType(type: mediaItem.type), attributeSet: attributes)
+            CSSearchableIndex.default().indexSearchableItems([item], completionHandler: nil)
         }
         
         player.prepareToPlay { error in
@@ -71,7 +112,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 DispatchQueue.main.async {
                     player.play()
                 }
-                completion(INPlayMediaIntentResponse(code: .success, userActivity: nil))
+                
+                let response = INPlayMediaIntentResponse(code: .success, userActivity: nil)
+                
+                // Donate an interaction to the system.
+                let interaction = INInteraction(intent: intent, response: response)
+                interaction.donate(completion: nil)
+                
+                completion(response)
             }
         }
     }

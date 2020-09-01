@@ -18,7 +18,7 @@ Before you run the sample code project in Xcode:
 
 4. Create a Key for the MusicKit service and create a developer token. For more information on this process, see [Getting Keys and Creating Tokens](https://developer.apple.com/documentation/applemusicapi/getting_keys_and_creating_tokens). 
 
-5. Copy the developer token to the `developerToken` variable in the `MusicKitAPIController.swift` file.
+5. Copy the developer token to the `developerToken` variable in the `AppleMusicAPIController.swift` file.
 
 6. Create a provisioning profile for `com.example.apple-samplecode.ControlAudio` and `com.example.apple-samplecode.ControlAudio.ControlAudioExtension` in your developer portal.
 

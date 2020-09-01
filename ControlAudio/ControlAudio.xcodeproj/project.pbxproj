@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FC45BDA24DA032500D2823E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC45BD924DA032500D2823E /* SceneDelegate.swift */; };
 		2F677903248A04A40085B68A /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F677902248A04A40085B68A /* AppIntentVocabulary.plist */; };
 		9A1E64C82465F1AB00631782 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E64C62465F1AA00631782 /* IntentsUI.framework */; };
 		9A1E64C92465F1AB00631782 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E64C72465F1AA00631782 /* Intents.framework */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1FC45BD924DA032500D2823E /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2DA8B282F3A9B48D99830943 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = ../Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		2F677902248A04A40085B68A /* AppIntentVocabulary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		9A1E64C62465F1AA00631782 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
@@ -140,10 +142,11 @@
 				2F677902248A04A40085B68A /* AppIntentVocabulary.plist */,
 				9AE70368227BEF0F00E78D38 /* ControlAudio.entitlements */,
 				9AE70341227BEE7700E78D38 /* AppDelegate.swift */,
+				1FC45BD924DA032500D2823E /* SceneDelegate.swift */,
 				9AE70343227BEE7700E78D38 /* ViewController.swift */,
 				9AE70345227BEE7700E78D38 /* Main.storyboard */,
-				9AE70348227BEE7800E78D38 /* Assets.xcassets */,
 				9AE7034A227BEE7800E78D38 /* LaunchScreen.storyboard */,
+				9AE70348227BEE7800E78D38 /* Assets.xcassets */,
 				9AE7034D227BEE7800E78D38 /* Info.plist */,
 			);
 			path = ControlAudio;
@@ -286,6 +289,7 @@
 				9AE70342227BEE7700E78D38 /* AppDelegate.swift in Sources */,
 				9AF3328D2280F103004AA73B /* MediaPlayerUtilities.swift in Sources */,
 				9AE70356227BEEA500E78D38 /* AppleMusicAPIController.swift in Sources */,
+				1FC45BDA24DA032500D2823E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

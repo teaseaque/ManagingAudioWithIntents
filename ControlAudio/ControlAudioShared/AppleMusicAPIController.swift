@@ -21,6 +21,7 @@ class AppleMusicAPIController {
     private var storefront: String?
     private var userToken: String?
     private let dateDecoder = DateDecoder()
+    private let cloudServiceController = SKCloudServiceController()
 
     private enum SearchType: String {
         case album = "albums"
@@ -95,8 +96,6 @@ class AppleMusicAPIController {
         if let savedToken = retrieveSavedUserToken() {
             completion(savedToken)
         } else {
-            let cloudServiceController = SKCloudServiceController()
-
             cloudServiceController.requestUserToken(forDeveloperToken: AppleMusicAPIController.developerToken) { fetchedUserToken, error in
                 guard let resolvedUserToken = fetchedUserToken else {
                     let errorString = error?.localizedDescription ?? "<unknown>"
@@ -112,15 +111,15 @@ class AppleMusicAPIController {
     }
 
     private func fetchStorefront(_ completion: @escaping (String?) -> Void) {
-        let url = composeAppleMusicAPIURL("/v1/me/storefront", parameters: nil)
-        executeFetch(StorefrontResponse.self, url: url) { storefrontResponse in
-            guard let storefront = storefrontResponse?.data.first?.identifier else {
+        cloudServiceController.requestStorefrontCountryCode { (code, error) in
+            guard let code = code else {
+                let errorString = error?.localizedDescription ?? "<unknown>"
+                os_log("Failed to fetch storefront error: %{public}@", log: OSLog.default, type: .error, errorString)
                 completion(nil)
                 return
             }
-
-            os_log("Fetched storefront: %{public}@", log: OSLog.default, type: .info, storefront)
-            completion(storefront)
+            os_log("Fetched storefront: %{public}@", log: OSLog.default, type: .info, code)
+            completion(code)
         }
     }
 
