@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>com.example.apple-samplecode.ControlAudio.Shared</string>
+		<string>group.com.Bill.TrackerApp</string>
 	</array>
 </dict>
 </plist>
