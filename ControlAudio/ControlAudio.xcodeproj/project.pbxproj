@@ -9,28 +9,14 @@
 /* Begin PBXBuildFile section */
 		1FC45BDA24DA032500D2823E /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC45BD924DA032500D2823E /* Other.swift */; };
 		2F677903248A04A40085B68A /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F677902248A04A40085B68A /* AppIntentVocabulary.plist */; };
-		9A1E64C82465F1AB00631782 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E64C62465F1AA00631782 /* IntentsUI.framework */; };
-		9A1E64C92465F1AB00631782 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1E64C72465F1AA00631782 /* Intents.framework */; };
 		9AE70342227BEE7700E78D38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE70341227BEE7700E78D38 /* AppDelegate.swift */; };
 		9AE70344227BEE7700E78D38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE70343227BEE7700E78D38 /* ViewController.swift */; };
 		9AE70349227BEE7800E78D38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AE70348227BEE7800E78D38 /* Assets.xcassets */; };
-		9AE7035E227BEED000E78D38 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7035D227BEED000E78D38 /* IntentHandler.swift */; };
-		9AE70362227BEED000E78D38 /* ControlAudioExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9AE7035B227BEED000E78D38 /* ControlAudioExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FC1B746D2A793F10004DCC6D /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1B746C2A793F10004DCC6D /* PlayerModel.swift */; };
+		FC1B74722A794B1E004DCC6D /* sample.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC1B74712A794B1E004DCC6D /* sample.mp3 */; };
 		FCD6304F2A68358E009DA0E0 /* ThankYou.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCD6304E2A68358E009DA0E0 /* ThankYou.mp3 */; };
-		FCD630502A68358E009DA0E0 /* ThankYou.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCD6304E2A68358E009DA0E0 /* ThankYou.mp3 */; };
 		FCD630522A6838E5009DA0E0 /* PlayAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD630512A6838E5009DA0E0 /* PlayAppIntent.swift */; };
-		FCD630532A683B4B009DA0E0 /* PlayAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD630512A6838E5009DA0E0 /* PlayAppIntent.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9AE70360227BEED000E78D38 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AE70336227BEE7700E78D38 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9AE7035A227BEED000E78D38;
-			remoteInfo = ControlAudioExtension;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9AE70366227BEED000E78D38 /* Embed Foundation Extensions */ = {
@@ -39,7 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9AE70362227BEED000E78D38 /* ControlAudioExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,11 +41,9 @@
 		9AE70343227BEE7700E78D38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9AE70348227BEE7800E78D38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AE7034D227BEE7800E78D38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9AE7035B227BEED000E78D38 /* ControlAudioExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ControlAudioExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AE7035D227BEED000E78D38 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
-		9AE7035F227BEED000E78D38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE70368227BEF0F00E78D38 /* ControlAudio.entitlements */ = {isa = PBXFileReference; explicitFileType = text.plist.entitlements; path = ControlAudio.entitlements; sourceTree = "<group>"; };
-		9AE8BF32227CF7A600E90EF9 /* ControlAudioExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ControlAudioExtension.entitlements; sourceTree = "<group>"; };
+		FC1B746C2A793F10004DCC6D /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		FC1B74712A794B1E004DCC6D /* sample.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sample.mp3; sourceTree = "<group>"; };
 		FCD6304E2A68358E009DA0E0 /* ThankYou.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ThankYou.mp3; sourceTree = "<group>"; };
 		FCD630512A6838E5009DA0E0 /* PlayAppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayAppIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,15 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9AE70358227BEED000E78D38 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A1E64C82465F1AB00631782 /* IntentsUI.framework in Frameworks */,
-				9A1E64C92465F1AB00631782 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				9AE70340227BEE7700E78D38 /* ControlAudio */,
-				9AE7035C227BEED000E78D38 /* ControlAudioExtension */,
 				9AE7033F227BEE7700E78D38 /* Products */,
 				9A1E64C52465F1AA00631782 /* Frameworks */,
 			);
@@ -108,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				9AE7033E227BEE7700E78D38 /* ControlAudio.app */,
-				9AE7035B227BEED000E78D38 /* ControlAudioExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,26 +89,18 @@
 			isa = PBXGroup;
 			children = (
 				FCD6304E2A68358E009DA0E0 /* ThankYou.mp3 */,
+				FC1B74712A794B1E004DCC6D /* sample.mp3 */,
 				2F677902248A04A40085B68A /* AppIntentVocabulary.plist */,
 				9AE70368227BEF0F00E78D38 /* ControlAudio.entitlements */,
 				9AE70341227BEE7700E78D38 /* AppDelegate.swift */,
 				1FC45BD924DA032500D2823E /* Other.swift */,
 				9AE70343227BEE7700E78D38 /* ViewController.swift */,
 				FCD630512A6838E5009DA0E0 /* PlayAppIntent.swift */,
+				FC1B746C2A793F10004DCC6D /* PlayerModel.swift */,
 				9AE70348227BEE7800E78D38 /* Assets.xcassets */,
 				9AE7034D227BEE7800E78D38 /* Info.plist */,
 			);
 			path = ControlAudio;
-			sourceTree = "<group>";
-		};
-		9AE7035C227BEED000E78D38 /* ControlAudioExtension */ = {
-			isa = PBXGroup;
-			children = (
-				9AE8BF32227CF7A600E90EF9 /* ControlAudioExtension.entitlements */,
-				9AE7035D227BEED000E78D38 /* IntentHandler.swift */,
-				9AE7035F227BEED000E78D38 /* Info.plist */,
-			);
-			path = ControlAudioExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,29 +118,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				9AE70361227BEED000E78D38 /* PBXTargetDependency */,
 			);
 			name = ControlAudio;
 			productName = ControlAudio;
 			productReference = 9AE7033E227BEE7700E78D38 /* ControlAudio.app */;
 			productType = "com.apple.product-type.application";
-		};
-		9AE7035A227BEED000E78D38 /* ControlAudioExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9AE70363227BEED000E78D38 /* Build configuration list for PBXNativeTarget "ControlAudioExtension" */;
-			buildPhases = (
-				9AE70357227BEED000E78D38 /* Sources */,
-				9AE70358227BEED000E78D38 /* Frameworks */,
-				9AE70359227BEED000E78D38 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ControlAudioExtension;
-			productName = ControlAudioExtension;
-			productReference = 9AE7035B227BEED000E78D38 /* ControlAudioExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -190,9 +136,6 @@
 				ORGANIZATIONNAME = Apple;
 				TargetAttributes = {
 					9AE7033D227BEE7700E78D38 = {
-						CreatedOnToolsVersion = 11.0;
-					};
-					9AE7035A227BEED000E78D38 = {
 						CreatedOnToolsVersion = 11.0;
 					};
 				};
@@ -211,7 +154,6 @@
 			projectRoot = "";
 			targets = (
 				9AE7033D227BEE7700E78D38 /* ControlAudio */,
-				9AE7035A227BEED000E78D38 /* ControlAudioExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -221,17 +163,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC1B74722A794B1E004DCC6D /* sample.mp3 in Resources */,
 				FCD6304F2A68358E009DA0E0 /* ThankYou.mp3 in Resources */,
 				2F677903248A04A40085B68A /* AppIntentVocabulary.plist in Resources */,
 				9AE70349227BEE7800E78D38 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9AE70359227BEED000E78D38 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FCD630502A68358E009DA0E0 /* ThankYou.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,28 +180,12 @@
 				9AE70344227BEE7700E78D38 /* ViewController.swift in Sources */,
 				9AE70342227BEE7700E78D38 /* AppDelegate.swift in Sources */,
 				1FC45BDA24DA032500D2823E /* Other.swift in Sources */,
+				FC1B746D2A793F10004DCC6D /* PlayerModel.swift in Sources */,
 				FCD630522A6838E5009DA0E0 /* PlayAppIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9AE70357227BEED000E78D38 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9AE7035E227BEED000E78D38 /* IntentHandler.swift in Sources */,
-				FCD630532A683B4B009DA0E0 /* PlayAppIntent.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9AE70361227BEED000E78D38 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9AE7035A227BEED000E78D38 /* ControlAudioExtension */;
-			targetProxy = 9AE70360227BEED000E78D38 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9AE7034E227BEE7800E78D38 /* Debug */ = {
@@ -435,52 +354,6 @@
 			};
 			name = Release;
 		};
-		9AE70364227BEED000E78D38 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ControlAudioExtension/ControlAudioExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KTK253RKCQ;
-				INFOPLIST_FILE = ControlAudioExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhjnbhn.ControlAudioExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9AE70365227BEED000E78D38 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ControlAudioExtension/ControlAudioExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KTK253RKCQ;
-				INFOPLIST_FILE = ControlAudioExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhjnbhn.ControlAudioExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -498,15 +371,6 @@
 			buildConfigurations = (
 				9AE70351227BEE7800E78D38 /* Debug */,
 				9AE70352227BEE7800E78D38 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9AE70363227BEED000E78D38 /* Build configuration list for PBXNativeTarget "ControlAudioExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9AE70364227BEED000E78D38 /* Debug */,
-				9AE70365227BEED000E78D38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
